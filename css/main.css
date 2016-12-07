@@ -13,8 +13,19 @@ body {
 
 li {
 	list-style: none;
+	text-decoration: none;
 }
-
+li:hover  {
+	list-style: none;
+	text-decoration: none;
+}
+a .msj:hover {
+	text-decoration: none; !important
+}
+a:hover, a:focus {
+    color: #23527c;
+    text-decoration: none;
+}
 ul {
 	margin:0;
 	padding: 0;
