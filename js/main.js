@@ -1,128 +1,81 @@
-window.addEventListener("load", cargaPagina);
-
-var inputMensaje = document.getElementById("mensajes");
-var contactos = document.getElementById("contactos");
-
-function cargaPagina() {
-
-	inputMensaje.addEventListener("click", limpiar);
-	inputMensaje.addEventListener("keyup", enviarMensaje);
-	contactos.addEventListener("click", escribir);
-	/*contactos.addEventListener("focus",vistaPrevia);*/
+function horaTotal() {
+    var fecha = new Date()
+    var minutos = fecha.getMinutes()
+    if (minutos < 10)
+        minutos = "0" + minutos
+    var horas = fecha.getHours()
+    if (horas < 10)
+        horas = "0" + horas
+    return horas + ":" + minutos
 }
+var cont = 0;
+var Laboratoria = [];
+var Mariana = [];
+var Aldo = [];
+var Chama = [];
+var Chamo = [];
+var Katy = [];
+var Andrea = [];
+var Raymi = [];
+var Papu = [];
 
-function escribir(e) {
-	e.preventDefault();
+$(document).ready(function () {
+    $('.msj').click(function hola() {
+        var data = $(this).attr('data');
+        var value = $(this).attr('value');
+        var imag = $(this).find('img').attr('src');
+        $('.new').html('<img src="' + imag + '" class="img-circle"/>')
+        $('.new').append('<span>' + data + '</span>');
+        $('#blanco').empty();
+    });
+    $('#enviomsj').keypress(function (e) {
+        var hora = horaTotal();
+        var mensaje = $('#enviomsj').val();
+        if (e.which == 13) {
+            $(this).val('');
+            $('#blanco').append('<div class="mensaje comment">' + mensaje + "</div>");
+            $('#blanco').append('<span>' + hora + '</span>');
 
-		var chatMensaje = document.getElementById("contenedor");
-		var imagenPerfil = document.getElementById("imagen");
-		imagenPerfil.setAttribute("src", "image/raymi.jpg");
-		imagenPerfil.classList.add("wh-44");
+            if (value === "1") {
+                Laboratoria.push(mensaje);
+            } else if (value === "2") {
+                Raymi.push(mensaje);
 
-		var nombre = document.getElementById("nombre");
-		nombre.classList.add("w-contact-name");
-		nombre.textContent = "Raymi Saldomando";
+            } else if (value === "3") {
+                Mariana.push(mensaje);
 
-		var previomensaje = document.getElementById("previomensaje");
-			previoMensaje.classList.add("w-users-messages");
+            } else if (value === "4") {
+                Chama.push(mensaje);
 
-		chatMensaje.appendChild(nombre);
-		chatMensaje.appendChild(imagenPerfil);
-		chatMensaje.appendChild(previomensaje);
+            } else if (value === "5") {
+                Chamo.push(mensaje);
 
+            } else if (value === "6") {
+                Andrea.push(mensaje);
 
-	/*var chatMensaje = document.getElementById("contenedor");
+            }
+            if (value === "7") {
+                Papu.push(mensaje);
+            }
+            if (value === "8") {
+                Katy.push(mensaje);
+            }
+            if (value === "9") {
+                Aldo.push(mensaje);
+            }
+        } else {}
+    });
+    $.expr[':'].icontains = function (obj, index, meta, stack) {
+        return (obj.textContent || obj.innerText || jQuery(obj).text() || '').toLowerCase().indexOf(meta[3].toLowerCase()) >= 0;
+    };
+    $(document).ready(function () {
+        $('#buscador').keyup(function () {
+            buscar = $(this).val();
+            $('#lista li h4').removeClass('resaltar');
+            if (jQuery.trim(buscar) != '') {
+                $("#lista li h4:icontains('" + buscar + "')").addClass('resaltar');
+            }
+        });
+    });
 
-	var imagenPerfil = document.getElementById("imagen");
-	imagenPerfil.classList.add("wh-44");
-
-	var contactos = document.getElementsByClassName("avatar");
-
-	var nombre = document.getElementById("nombre");
-	nombre.classList.add("w-contact-name");
-
-	var previo = document.getElementById("previo");
-	previo.classList.add("w-users-messages");
-
-	if (contactos[0]) {
-		imagenPerfil.setAttribute("src", "image/raymi.jpg");
-		nombre.textContent = "Raymi Saldomando";
-
-	} else if (contactos[1]) {
-		imagenPerfil.setAttribute("src", "image/mariana.jpg");
-		nombre.textContent = "Mariana Costa";
-	} else if (contactos[2]) {
-		imagenPerfil.setAttribute("src", "image/anamaria.jpg");
-		nombre.textContent = "Ana Maria Martinez";
-	} else if (contactos[3]) {
-		imagenPerfil.setAttribute("src", "image/rodulfo.jpg");
-		nombre.textContent = "Rodulfo Prieto";
-	} else if (contactos[4]) {
-		imagenPerfil.setAttribute("src", "image/andrea.jpg");
-		nombre.textContent = "Andrea Lamas";
-	} else if (contactos[5]) {
-		imagenPerfil.setAttribute("src", "image/mariapaula.jpg");
-		nombre.textContent = "Maria Paula";
-	}*/
-
-	chatMensaje.appendChild(nombre);
-	chatMensaje.appendChild(imagenPerfil);
-	chatMensaje.appendChild(previo);
-}
-
-function enviarMensaje(e) {
-	e.preventDefault();
-
-	var key = e.keyCode;
-
-	if (key === 13) {
-
-		var texto = inputMensaje.value;
-		var panelChat = document.getElementById("panelChat");
-
-		var burbuja = document.createElement("div");
-		burbuja.classList.add("w-message", "w-message-out");
-
-		var contenedorTexto = document.createElement("div");
-		contenedorTexto.classList.add("w-message-text");
-
-		var textoMensaje = document.createElement("p");
-		textoMensaje.textContent = texto;
-
-		var horaTotal = document.createElement("div");
-		horaTotal.classList.add("time");
-
-		var tiempo = new Date();
-		var hora = tiempo.getHours();
-		var minuto = tiempo.getMinutes();
-		var total = hora + ":" + minuto;
-
-		if (minuto < 10) {
-			minuto = "0" + minuto;
-		}
-
-		horaTotal.innerText = total;
-		inputMensaje.value = "";
-
-
-		burbuja.appendChild(contenedorTexto);
-		contenedorTexto.appendChild(textoMensaje);
-		contenedorTexto.appendChild(horaTotal);
-		panelChat.appendChild(burbuja);
-
-	}
-}
-
-function limpiar() {
-	inputMensaje.value = " ";
-	inputMensaje.focus();
-}
-
-function vistaPrevia() {
-	/*var avatar = document.getElementById("avatar");
-	var vista = document.createElement("span");
-		vista.classList.add("vista-previa" , "msg");
-		vista.textContent = "No se pique!!!";
-		avatar.appendChild(vista);*/
-	alert("Estas en foco");
-}
+});
